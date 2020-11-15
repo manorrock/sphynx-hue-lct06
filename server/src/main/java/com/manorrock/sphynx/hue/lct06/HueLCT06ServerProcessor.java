@@ -27,22 +27,37 @@
  */
 package com.manorrock.sphynx.hue.lct06;
 
-import cloud.piranha.http.impl.DefaultHttpServer;
+import cloud.piranha.http.api.HttpServerProcessor;
+import cloud.piranha.http.api.HttpServerRequest;
+import cloud.piranha.http.api.HttpServerResponse;
+import cloud.piranha.http.webapp.HttpServerWebApplicationRequest;
+import cloud.piranha.http.webapp.HttpServerWebApplicationResponse;
 import cloud.piranha.nano.NanoPiranha;
-import cloud.piranha.nano.NanoPiranhaBuilder;
+import java.io.IOException;
+import javax.servlet.ServletException;
 
-public class HueLCT06Application {
+/**
+ * Our custon HttpServerProcessor that calls Piranha Nano.
+ *
+ * @author Manfred Riem (mriem@manorrock.com)
+ */
+public class HueLCT06ServerProcessor implements HttpServerProcessor {
 
-    public void run() {
-        NanoPiranha piranha = new NanoPiranhaBuilder()
-                .servlet("HueLCT06", new HueLCT06Servlet())
-                .build();
-        DefaultHttpServer server = new DefaultHttpServer(8080, new HueLCT06ServerProcessor(piranha), false);
-        server.start();
+    private NanoPiranha piranha;
+
+    public HueLCT06ServerProcessor(NanoPiranha piranha) {
+        this.piranha = piranha;
     }
 
-    public static void main(String[] args) throws Exception {
-        HueLCT06Application application = new HueLCT06Application();
-        application.run();
+    @Override
+    public boolean process(HttpServerRequest request, HttpServerResponse response) {
+        try {
+            HttpServerWebApplicationRequest servletRequest = new HttpServerWebApplicationRequest(request);
+            HttpServerWebApplicationResponse servletResponse = new HttpServerWebApplicationResponse(response);
+            piranha.service(servletRequest, servletResponse);
+        } catch (IOException | ServletException e) {
+            e.printStackTrace(System.err);
+        }
+        return false;
     }
 }

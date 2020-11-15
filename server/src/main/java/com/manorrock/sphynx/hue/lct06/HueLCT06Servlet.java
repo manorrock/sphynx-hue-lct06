@@ -27,19 +27,23 @@
  */
 package com.manorrock.sphynx.hue.lct06;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-public class HueLCT06Handler implements HttpHandler {
+/**
+ * The HTTP servlet for the Hue LCT06 light bulb.
+ * 
+ * @author Manfred Riem (mriem@manorrock.com)
+ */
+public class HueLCT06Servlet extends HttpServlet {
 
     @Override
-    public void handle(HttpExchange exchange) throws IOException {
-        String response = "Hello";
-        exchange.sendResponseHeaders(200, response.length());
-        try (OutputStream outputStream = exchange.getResponseBody()) {
-            outputStream.write(response.getBytes());
-        }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        PrintWriter writer = response.getWriter();
+        writer.println("Hello");
     }
 }

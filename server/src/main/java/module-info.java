@@ -33,5 +33,9 @@
  */
 module com.manorrock.sphynx.hue.lct06 {
     exports com.manorrock.sphynx.hue.lct06;
-    requires jdk.httpserver;
+    requires cloud.piranha.http.api;
+    requires cloud.piranha.http.impl;
+    requires cloud.piranha.http.webapp;
+    requires cloud.piranha.nano;
+    requires cloud.piranha.servlet.api;
 }
