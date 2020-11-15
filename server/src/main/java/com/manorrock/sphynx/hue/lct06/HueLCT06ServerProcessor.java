@@ -54,6 +54,10 @@ public class HueLCT06ServerProcessor implements HttpServerProcessor {
         try {
             HttpServerWebApplicationRequest servletRequest = new HttpServerWebApplicationRequest(request);
             HttpServerWebApplicationResponse servletResponse = new HttpServerWebApplicationResponse(response);
+            /*
+             * Once Piranha Nanon 20.12.0 has been released remove the setUnderlyingOutputStream
+             */
+            servletResponse.setUnderlyingOutputStream(response.getOutputStream());
             piranha.service(servletRequest, servletResponse);
         } catch (IOException | ServletException e) {
             e.printStackTrace(System.err);

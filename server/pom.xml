@@ -12,7 +12,23 @@
     </parent>
     <artifactId>sphynx-hue-lct06</artifactId>
     <packaging>jar</packaging>
-    <name>Hue LCT06 Color Lamp</name>
+    <name>Hue LCT06 Color Lamp - Server</name>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.manorrock.sphynx.hue.lct06.HueLCT06Application</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
         <dependency>
             <groupId>cloud.piranha.http</groupId>
