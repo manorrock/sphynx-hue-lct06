@@ -22,7 +22,6 @@
         </pluginManagement>
     </build>
     <modules>
-        <module>jlink</module>
         <module>server</module>
     </modules>
     <repositories>

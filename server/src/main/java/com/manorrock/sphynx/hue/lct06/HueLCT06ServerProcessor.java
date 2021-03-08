@@ -30,11 +30,11 @@ package com.manorrock.sphynx.hue.lct06;
 import cloud.piranha.http.api.HttpServerProcessor;
 import cloud.piranha.http.api.HttpServerRequest;
 import cloud.piranha.http.api.HttpServerResponse;
-import cloud.piranha.http.webapp.HttpServerWebApplicationRequest;
-import cloud.piranha.http.webapp.HttpServerWebApplicationResponse;
+import cloud.piranha.http.webapp.HttpWebApplicationRequest;
+import cloud.piranha.http.webapp.HttpWebApplicationResponse;
 import cloud.piranha.nano.NanoPiranha;
 import java.io.IOException;
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletException;
 
 /**
  * Our custon HttpServerProcessor that calls Piranha Nano.
@@ -52,12 +52,8 @@ public class HueLCT06ServerProcessor implements HttpServerProcessor {
     @Override
     public boolean process(HttpServerRequest request, HttpServerResponse response) {
         try {
-            HttpServerWebApplicationRequest servletRequest = new HttpServerWebApplicationRequest(request);
-            HttpServerWebApplicationResponse servletResponse = new HttpServerWebApplicationResponse(response);
-            /*
-             * Once Piranha Nanon 20.12.0 has been released remove the setUnderlyingOutputStream
-             */
-            servletResponse.setUnderlyingOutputStream(response.getOutputStream());
+            HttpWebApplicationRequest servletRequest = new HttpWebApplicationRequest(request);
+            HttpWebApplicationResponse servletResponse = new HttpWebApplicationResponse(response);
             piranha.service(servletRequest, servletResponse);
         } catch (IOException | ServletException e) {
             e.printStackTrace(System.err);

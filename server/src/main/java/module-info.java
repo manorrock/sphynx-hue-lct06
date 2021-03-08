@@ -32,10 +32,11 @@
  * @author Manfred Riem (mriem@manorrock.com)
  */
 module com.manorrock.sphynx.hue.lct06 {
+    
     exports com.manorrock.sphynx.hue.lct06;
     requires cloud.piranha.http.api;
     requires cloud.piranha.http.impl;
     requires cloud.piranha.http.webapp;
     requires cloud.piranha.nano;
-    requires cloud.piranha.servlet.api;
+    requires jakarta.servlet;
 }
